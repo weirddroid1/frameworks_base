@@ -287,5 +287,10 @@ public class SystemSettingsValidators {
         VALIDATORS.put(
                 System.ACCESSIBILITY_FORCE_INVERT_COLOR_OVERRIDE_PACKAGES_TO_DISABLE,
                 new PackageNameListValidator(","));
+        // AICP Settings start
+        VALIDATORS.put(System.GLOBAL_ACTIONS_ONTHEGO, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(System.ON_THE_GO_ALPHA, ANY_STRING_VALIDATOR);
+        VALIDATORS.put(System.ON_THE_GO_SERVICE_RESTART, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(System.ON_THE_GO_CAMERA, ANY_INTEGER_VALIDATOR);
     }
 }

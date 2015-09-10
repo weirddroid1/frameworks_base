@@ -224,6 +224,7 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
     private static final String RESTART_ACTION_KEY_RESTART_BOOTLOADER = "restart_bootloader";
     private static final String RESTART_ACTION_KEY_RESTART_DOWNLOAD = "restart_download";
     private static final String RESTART_ACTION_KEY_RESTART_FASTBOOT = "restart_fastboot";
+    private static final String GLOBAL_ACTION_KEY_ONTHEGO = "onthego";
 
     // See NotificationManagerService#scheduleDurationReachedLocked
     private static final long TOAST_FADE_TIME = 333;
@@ -795,6 +796,11 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
         if (mEmergencyAffordanceManager.needsEmergencyAffordance()) {
             addIfShouldShowAction(tempActions, new EmergencyAffordanceAction());
             handledEmergencyAffordance = true;
+        }
+
+        if (Settings.System.getInt(mContext.getContentResolver(),
+            Settings.System.POWERMENU_ONTHEGO, 0) == 1) {
+            addIfShouldShowAction(tempActions, new getOnTheGoAction());
         }
 
         for (String actionKey : restartActions) {
@@ -1614,6 +1620,34 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
                 return true;
             }
         };
+    }
+
+    class getOnTheGoAction extends SinglePressAction {
+
+        public getOnTheGoAction() {
+            super(com.android.systemui.res.R.drawable.ic_lock_onthego,
+                    com.android.systemui.res.R.string.global_action_onthego);
+        }
+
+        @Override
+        public void onPress() {
+            ComponentName cn = new ComponentName("com.android.systemui",
+                    "com.android.systemui.aicp.onthego.OnTheGoService");
+            Intent onTheGoIntent = new Intent();
+            onTheGoIntent.setComponent(cn);
+            onTheGoIntent.setAction("start");
+            mContext.startService(onTheGoIntent);
+        }
+
+        @Override
+        public boolean showDuringKeyguard() {
+            return true;
+        }
+
+        @Override
+        public boolean showBeforeProvisioning() {
+            return false;
+        }
     }
 
     @VisibleForTesting

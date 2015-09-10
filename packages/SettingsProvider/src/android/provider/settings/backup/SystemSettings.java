@@ -132,7 +132,12 @@ public class SystemSettings {
                 Settings.System.CV_PREFERRED_INTENSITY,
                 Settings.System.PEAK_REFRESH_RATE,
                 Settings.System.MIN_REFRESH_RATE,
-                Settings.System.ACCESSIBILITY_FORCE_INVERT_COLOR_OVERRIDE_PACKAGES_TO_DISABLE
+                Settings.System.ACCESSIBILITY_FORCE_INVERT_COLOR_OVERRIDE_PACKAGES_TO_DISABLE,
+                // AICP Settings start
+                Settings.System.GLOBAL_ACTIONS_ONTHEGO,
+                Settings.System.ON_THE_GO_ALPHA,
+                Settings.System.ON_THE_GO_SERVICE_RESTART,
+                Settings.System.ON_THE_GO_CAMERA
         ));
         return settings.toArray(new String[0]);
     }

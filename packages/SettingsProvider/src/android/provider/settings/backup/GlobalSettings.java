@@ -149,5 +149,6 @@ public class GlobalSettings {
         Settings.Global.MINMODE_ACTIVE,
         Settings.Global.WATCH_RANGING_AVAILABLE,
         Settings.Global.Wearable.WEAR_SATELLITE_MODE_ENABLED,
+        Settings.Global.LOCKSCREEN_ENABLE_POWER_MENU,
     };
 }

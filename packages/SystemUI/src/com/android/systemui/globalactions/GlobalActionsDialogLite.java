@@ -524,6 +524,7 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
                             if (dismissWithoutAnimation) {
                                 mDelegate.dismissWithoutAnimation();
                             } else {
+                                mDelegate.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                                 mDelegate.dismiss();
                             }
                             mDelegate = null;
@@ -631,6 +632,7 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
         mKeyguardShowing = keyguardShowing;
         mDeviceProvisioned = isDeviceProvisioned;
         if (mDelegate != null && mDelegate.isShowing()) {
+            mDelegate.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             // In order to force global actions to hide on the same affordance press, we must
             // register a call to onGlobalActionsShown() first to prevent the default actions
             // menu from showing. This will be followed by a subsequent call to
@@ -670,6 +672,9 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
      * Dismiss the global actions dialog, if it's currently shown
      */
     public void dismissDialog() {
+        if (mDialog != null) {
+            mDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
         mHandler.removeMessages(MESSAGE_DISMISS);
         mHandler.sendEmptyMessage(MESSAGE_DISMISS);
     }
@@ -681,6 +686,7 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
         WindowManager.LayoutParams attrs = dialog.getWindow().getAttributes();
         attrs.setTitle("GlobalActionsDialogLite");
         attrs.layoutInDisplayCutoutMode = LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS;
+        attrs.alpha = setPowerMenuAlpha();
         if (isVolumeAndPowerBlurEnabled() && mTranslucentPowerMenu) {
             attrs.flags |= WindowManager.LayoutParams.FLAG_BLUR_BEHIND;
             attrs.setBlurBehindRadius(mContext.getResources().getDimensionPixelSize(
@@ -715,6 +721,22 @@ public class GlobalActionsDialogLite implements DialogInterface.OnDismissListene
         return mResources.getInteger(com.android.systemui.res.R.integer.power_menu_lite_max_columns)
                 * mResources.getInteger(
                     com.android.systemui.res.R.integer.power_menu_lite_max_rows);
+    }
+
+    private float setPowerMenuAlpha() {
+        int mPowerMenuAlpha = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.TRANSPARENT_POWER_MENU, 100);
+        double dAlpha = mPowerMenuAlpha / 100.0;
+        float alpha = (float) dAlpha;
+        return alpha;
+    }
+
+    private float setPowerMenuDialogDim() {
+        int mPowerMenuDialogDim = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.TRANSPARENT_POWER_DIALOG_DIM, 50);
+        double dDim = mPowerMenuDialogDim / 100.0;
+        float dim = (float) dDim;
+        return dim;
     }
 
     /**

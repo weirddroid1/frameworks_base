@@ -6945,6 +6945,13 @@ public final class Settings {
         public static final String TRANSPARENT_POWER_DIALOG_DIM = "transparent_power_dialog_dim";
 
         /**
+         * Whether to display set of animations when prompting the power menu
+         *
+         * @hide
+         */
+        public static final String POWER_MENU_ANIMATIONS = "power_menu_animations";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
@@ -7098,6 +7105,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(CHARGING_ANIMATION);
             PRIVATE_SETTINGS.add(TRANSPARENT_POWER_MENU);
             PRIVATE_SETTINGS.add(TRANSPARENT_POWER_DIALOG_DIM);
+            PRIVATE_SETTINGS.add(POWER_MENU_ANIMATIONS);
         }
 
         /**

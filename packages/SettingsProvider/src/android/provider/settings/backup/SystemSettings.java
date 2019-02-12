@@ -141,7 +141,8 @@ public class SystemSettings {
                 Settings.System.CHARGING_ANIMATION,
                 Settings.System.TRANSPARENT_POWER_MENU,
                 Settings.System.TRANSPARENT_POWER_DIALOG_DIM,
-                Settings.System.POWER_MENU_ANIMATIONS
+                Settings.System.POWER_MENU_ANIMATIONS,
+                Settings.System.LOCKSCREEN_BATTERY_INFO
         ));
         return settings.toArray(new String[0]);
     }

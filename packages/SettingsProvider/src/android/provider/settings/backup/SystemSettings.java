@@ -142,7 +142,8 @@ public class SystemSettings {
                 Settings.System.TRANSPARENT_POWER_MENU,
                 Settings.System.TRANSPARENT_POWER_DIALOG_DIM,
                 Settings.System.POWER_MENU_ANIMATIONS,
-                Settings.System.LOCKSCREEN_BATTERY_INFO
+                Settings.System.LOCKSCREEN_BATTERY_INFO,
+                Settings.System.LOCKSCREEN_BATTERY_INFO_TEMP_UNIT
         ));
         return settings.toArray(new String[0]);
     }
